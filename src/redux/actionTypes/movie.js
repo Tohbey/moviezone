@@ -1,0 +1,3 @@
+export const GET_MOVIES = "GET_MOVIES"
+export const FETCH_REQUEST = "FETCH_REQUEST" 
+export const FETCH_FAILURE = "FETCH_FAILURE"
