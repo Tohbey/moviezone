@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { 
     View,
     Text,
@@ -11,21 +11,18 @@ import {
 import FormInput from '../component/formInput';
 import FormButton from '../component/formButton';
 import SocialButton from '../component/socialButton';
+import { AuthContext } from '../naviagtion/AuthProvider'
 
 
 const signUp = (props) =>  {
-    let navigation = props.navigation;
-    const [signUpDetail, setsignUpDetail] = useState({
-        name:"",
-        email:"",
-        password:""
-    })
+    const [email, setemail] = useState();
+    const [password, setpassword] = useState();
+    const [confirmPassword, setconfirmPassword] = useState();
+
+    const { register } = useContext(AuthContext);
 
     const submit = () => {
-        if(signUpDetail.name === "" || signUpDetail.email === "" || signUpDetail.password === ""){
-           return alert("full name or email or password missing")
-        }
-        console.log(signUpDetail)
+        console.log(email,password,confirmPassword)
     }
 
     return (
@@ -33,20 +30,10 @@ const signUp = (props) =>  {
             <ScrollView scrollEnabled={false}>
                 <View style={styles.container}>
                     <Text style={styles.text}>Create an account</Text>
-                    
-                    <FormInput 
-                        labelValue={signUpDetail.name}
-                        onChangeText={(e) => {}}
-                        placeholderText="Name"
-                        iconType="user"
-                        keyboardType="email-address"
-                        autoCapitalize="none"
-                        autoCorrect={false}
-                    />
 
                     <FormInput 
-                        labelValue={signUpDetail.email}
-                        onChangeText={(e) => {}}
+                        labelValue={email}
+                        onChangeText={(userEmail) => setemail(userEmail)}
                         placeholderText="Email"
                         iconType="mail"
                         keyboardType="email-address"
@@ -55,15 +42,24 @@ const signUp = (props) =>  {
                     />
 
                     <FormInput 
-                        labelValue={signUpDetail.password}
-                        onChangeText={(e) => {}}
+                        labelValue={password}
+                        onChangeText={(userPassword) => setpassword(userPassword)}
                         placeholderText="Password"
+                        iconType="lock"
+                        secureTextEntry={true}
+                    />
+
+                    <FormInput 
+                        labelValue={confirmPassword}
+                        onChangeText={(userConfirmPassword) => setconfirmPassword(userConfirmPassword)}
+                        placeholderText="Confirm Password"
                         iconType="lock"
                         secureTextEntry={true}
                     />
 
                     <FormButton 
                         buttonTitle="Sign Up"
+                        onPress={() => register(email, password)}
                     />
 
                     <View style={styles.textPrivate}>

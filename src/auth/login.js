@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { 
     View,
     Text,
@@ -14,19 +14,15 @@ import Logo from '../assests/logo.png';
 import FormInput from '../component/formInput';
 import FormButton from '../component/formButton';
 import SocialButton from '../component/socialButton';
+import { AuthContext } from '../naviagtion/AuthProvider';
 
-const login = (props) =>  {
-    let navigation = props.navigation;
-    
-    const [loginDetail, setloginDetail] = useState({
-        email:"",
-        password:""
-    })
+const login = (props) =>  {    
+    const [email, setemail] = useState();
+    const [password, setpassword] = useState();
+
+    const {login} = useContext(AuthContext)
 
     const onSignUp = () => {
-        if(loginDetail.email === "" || loginDetail.password === ""){
-            return alert("Email or Password is missing")
-        }
         console.log(loginDetail)
     }
 
@@ -36,9 +32,10 @@ const login = (props) =>  {
                 <View style={styles.container}>
                     <Image source={Logo} style={styles.logo}/>
                     <Text style={styles.text}>Movie Zone</Text>
+                    
                     <FormInput 
-                        labelValue={loginDetail.email}
-                        onChangeText={(e) => loginDetail.setloginDetail()}
+                        labelValue={email}
+                        onChangeText={(userEmail) => setemail(userEmail)}
                         placeholderText="Email"
                         iconType="mail"
                         keyboardType="email-address"
@@ -47,8 +44,8 @@ const login = (props) =>  {
                     />
 
                     <FormInput 
-                        labelValue={loginDetail.password}
-                        onChangeText={(e) => loginDetail.setloginDetail()}
+                        labelValue={password}
+                        onChangeText={(userPassword) => setpassword(userPassword)}
                         placeholderText="Password"
                         iconType="lock"
                         secureTextEntry={true}
@@ -56,6 +53,7 @@ const login = (props) =>  {
 
                     <FormButton 
                         buttonTitle="Sign In"
+                        onPress={() => login(email,password)}
                     />
 
                     <TouchableOpacity style={styles.forgotButton}>
