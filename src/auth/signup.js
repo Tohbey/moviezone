@@ -8,9 +8,9 @@ import {
     KeyboardAvoidingView,
     TouchableOpacity,
 } from 'react-native';
-import FormInput from '../component/formInput';
-import FormButton from '../component/formButton';
-import SocialButton from '../component/socialButton';
+import FormInput from '../component/UI/formInput';
+import FormButton from '../component/UI/formButton';
+import SocialButton from '../component/UI/socialButton';
 import { AuthContext } from '../naviagtion/AuthProvider'
 
 

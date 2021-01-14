@@ -1,3 +1,8 @@
 export const GET_MOVIES = "GET_MOVIES"
 export const FETCH_REQUEST = "FETCH_REQUEST" 
 export const FETCH_FAILURE = "FETCH_FAILURE"
+export const GET_LATEST = "GET_LASTEST"
+export const GET_NOW_PLAYING = "GET_NOW_PLAYING"
+export const GET_POPULAR = "GET_POPULAR"
+export const GET_UPCOMING = "GET_UPCOMING"
+export const GET_TOP_RATED = "GET_TOP_RATED"

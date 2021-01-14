@@ -5,8 +5,8 @@ import Profile from '../tabs/profile';
 import Series from '../tabs/series';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Feather from 'react-native-vector-icons/Feather'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const mainTab = createBottomTabNavigator();
 
@@ -45,7 +45,7 @@ const MainNavigation = () => {
           options={{
             tabBarLabel:'Movies',
             tabBarIcon: ({color}) => (
-              <SimpleLineIcons size={25} name="feed"  color={color}/>
+              <MaterialCommunityIcons size={25} name="movie"  color={color}/>
             )
           }}
         />
@@ -54,7 +54,7 @@ const MainNavigation = () => {
           options={{
             tabBarLabel:'Series',
             tabBarIcon: ({color}) => (
-              <AntDesign size={25} name="shoppingcart" color={color}/>
+              <MaterialCommunityIcons size={25} name="movie-roll" color={color}/>
             )
           }}
         />

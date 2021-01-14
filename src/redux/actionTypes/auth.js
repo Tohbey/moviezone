@@ -1,3 +1,0 @@
-export const GET_TOKEN = "GET_TOKEN"
-export const FETCH_REQUEST = "FETCH_REQUEST" 
-export const FETCH_FAILURE = "FETCH_FAILURE"

@@ -4,6 +4,10 @@ import AuthNavigator from './AuthNaviagtor';
 import MainNavigation from './MainNavigator';
 import auth from '@react-native-firebase/auth';
 import { AuthContext } from './AuthProvider';
+import { Provider } from 'react-redux';
+import configureStore from '../redux/store'
+
+const store = configureStore()
 
 const Routes = ()  => {
     const { user, setuser } = useContext(AuthContext)
@@ -25,9 +29,11 @@ const Routes = ()  => {
 
 
     return (
-        <NavigationContainer>
-            { user ? <MainNavigation /> : <AuthNavigator /> }
-        </NavigationContainer>
+        <Provider store={store}>
+            <NavigationContainer>
+                { user ? <MainNavigation /> : <AuthNavigator /> }
+            </NavigationContainer>
+        </Provider>
     )
 }
 
