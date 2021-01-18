@@ -7,14 +7,15 @@ import {
     TouchableWithoutFeedback,
     ScrollView,
 } from 'react-native';
-import Board from '../component/UI/board';
+import MovieContainer from '../component/movie/movieContainer';
 
 const movies = (props) =>  {
-    const [button, setbutton] = useState('Popular')
+    const [category, setcategory] = useState('Popular')
+    const [films, setfilms] = useState(popularMovies)
+
     let popularMovies = []
     let playingMovie = []
     let topMovies = []
-    let trendingMovies = []
     let upcomingMovies = []
     
     useSelector(state => {
@@ -22,52 +23,53 @@ const movies = (props) =>  {
         popularMovies = state.movie.popular
         topMovies = state.movie.topRated
         upcomingMovies = state.movie.upComing
-        latestMovies = state.movie.latest
-        trendingMovies = state.movie.trending
     })
+    
+    const click = (category, film) => {
+        setcategory(category);
+        setfilms(film);
+        console.log(category)
+    }
 
     return (
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.mainHeader}>Movies</Text>
                 <TouchableWithoutFeedback
-                    onPress={() => setbutton("Popular")}>
-                    <View style={styles.button}>
-                        <Text style={(button === "Popular")?styles.btnSelected:styles.notSelected}>
+                    onPress={() => click("Popular",popularMovies)}>
+                    <View style={styles.category}>
+                        <Text style={(category === "Popular")?styles.btnSelected:styles.notSelected}>
                             Popular
                         </Text>
                     </View>
                 </TouchableWithoutFeedback>
                 <TouchableWithoutFeedback
-                    onPress={() => setbutton("Now Playing")}>
-                    <View style={styles.button}>
-                        <Text style={(button === "Now Playing")?styles.btnSelected:styles.notSelected}>
+                    onPress={() => click("Now Playing",playingMovie)}>
+                    <View style={styles.category}>
+                        <Text style={(category === "Now Playing")?styles.btnSelected:styles.notSelected}>
                             Now Playing
                         </Text>
                     </View>
                 </TouchableWithoutFeedback>
                 <TouchableWithoutFeedback
-                    onPress={() => setbutton("Upcoming")}>
-                    <View style={styles.button}>
-                        <Text style={(button === "Upcoming")?styles.btnSelected:styles.notSelected}>
+                    onPress={() => click("Upcoming",upcomingMovies)}>
+                    <View style={styles.category}>
+                        <Text style={(category === "Upcoming")?styles.btnSelected:styles.notSelected}>
                             Upcoming
                         </Text>
                     </View>
                 </TouchableWithoutFeedback>
                 <TouchableWithoutFeedback
-                    onPress={() => setbutton("Top Rated")}>
-                    <View style={styles.button}>
-                        <Text style={(button === "Top Rated")?styles.btnSelected:styles.notSelected}>
+                    onPress={() => click("Top Rated",topMovies)}>
+                    <View style={styles.category}>
+                        <Text style={(category === "Top Rated")?styles.btnSelected:styles.notSelected}>
                             Top Rated
                         </Text>
                     </View>
                 </TouchableWithoutFeedback>
             </View>
             <View style={{marginTop:5}}>
-                <Text style={{marginLeft:10, fontSize:20,color:'black'}}>
-                    {button}
-                </Text>
-                <Board />
+                <MovieContainer movies={films} name={category} />
             </View>
         </View>
     )
@@ -90,7 +92,7 @@ const styles = StyleSheet.create({
         fontWeight:'600',
         marginRight:5
     },
-    button:{
+    category:{
         padding:4,
     },
     btnSelected:{

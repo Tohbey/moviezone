@@ -15,14 +15,14 @@ const board = ({poster,title,date, rating, overview, genre, popularity}) => {
             </View>
             <View style={styles.right}>
                 <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                    <Text>Title</Text> 
-                    <Text>Date</Text>
+                    <Text>{title}</Text> 
+                    <Text>{date}</Text>
                 </View>
-                <Text>overview</Text>
-                <Text>genre</Text>
+                <Text numberOfLines={3}>{overview}</Text>
+                <Text>{genre}</Text>
                 <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                    <Text>Rating</Text>
-                    <Text>Popularity</Text>
+                    <Text>{rating}</Text>
+                    <Text>{popularity}</Text>
                 </View>
             </View>
         </View>
@@ -33,10 +33,11 @@ const styles = StyleSheet.create({
     board:{
         width:'100%',
         height:135,
-        borderColor:'red',
-        borderWidth: 1,
         marginTop:5,
-        flexDirection:'row'
+        flexDirection:'row',
+        borderTopWidth:1,
+        borderBottomWidth:1,
+        borderColor:'black'
     },
     left:{
         width:140,

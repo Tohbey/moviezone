@@ -4,13 +4,25 @@ import {
 } from 'react-native'
 import Board from '../UI/board'
 
-const movieContainer = ({movies})  => {
+const movieContainer = ({movies,name})  => {
     return (
-        <ScrollView>
-            {movies.map((movie,i) => (
-                <Board key={i} />
-            ))}
-        </ScrollView>
+        <View>
+            <Text style={{marginLeft:10, fontSize:20,color:'black'}}>
+                {name}
+            </Text>
+            <ScrollView>
+                {movies.map((movie,i) => (
+                    <Board 
+                        key={i} 
+                        title={movie.title}
+                        date={movie.release_date}
+                        overview={movie.overview}
+                        rating={movie.vote_average}
+                        popularity={movie.popularity}
+                    />
+                ))}
+            </ScrollView>
+        </View>
     )
 }
 

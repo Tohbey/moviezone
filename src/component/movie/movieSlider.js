@@ -20,7 +20,7 @@ const movieSlider = ({movies, name, navigation, screen}) => {
                 <ScrollView horizontal={true}>
                     {movies.slice(0,10).map((movie,i) => (
                         <Card key={i}
-                            title={movie.original_title}
+                            title={movie.title}
                             date={movie.release_date}
                             rating={movie.vote_average}
                             poster={movie.poster_path}
