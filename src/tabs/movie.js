@@ -1,5 +1,5 @@
-import React, { useState }from 'react';
-import { useSelector } from 'react-redux'
+import React, { useState, useEffect }from 'react';
+import { useSelector, useDispatch } from 'react-redux'
 import { 
     View,
     Text,
@@ -8,27 +8,28 @@ import {
     ScrollView,
 } from 'react-native';
 import MovieContainer from '../component/movie/movieContainer';
+import { getMovies } from '../redux/actions/movie';
 
-const movies = (props) =>  {
-    const [category, setcategory] = useState('Popular')
-    const [films, setfilms] = useState(popularMovies)
-
-    let popularMovies = []
-    let playingMovie = []
-    let topMovies = []
-    let upcomingMovies = []
+const movies = ({route}) =>  {
+    console.log(route.params.category)
     
+    const [category, setcategory] = useState('Popular')
+    let movies = []
+    const dispatch = useDispatch()
+
     useSelector(state => {
-        playingMovie = state.movie.nowPlaying;
-        popularMovies = state.movie.popular
-        topMovies = state.movie.topRated
-        upcomingMovies = state.movie.upComing
+        movies = state.movie.movies
     })
     
-    const click = (category, film) => {
-        setcategory(category);
-        setfilms(film);
-        console.log(category)
+    const getMovie = (category) => dispatch(getMovies(category))
+    
+    useEffect(() => {
+        getMovie(category)   
+    },[])
+
+    const onClick = (category) => {
+        setcategory(category)
+        getMovie(category)
     }
 
     return (
@@ -36,7 +37,7 @@ const movies = (props) =>  {
             <View style={styles.header}>
                 <Text style={styles.mainHeader}>Movies</Text>
                 <TouchableWithoutFeedback
-                    onPress={() => click("Popular",popularMovies)}>
+                    onPress={() => onClick("Popular")}>
                     <View style={styles.category}>
                         <Text style={(category === "Popular")?styles.btnSelected:styles.notSelected}>
                             Popular
@@ -44,7 +45,7 @@ const movies = (props) =>  {
                     </View>
                 </TouchableWithoutFeedback>
                 <TouchableWithoutFeedback
-                    onPress={() => click("Now Playing",playingMovie)}>
+                    onPress={() => onClick("Now Playing")}>
                     <View style={styles.category}>
                         <Text style={(category === "Now Playing")?styles.btnSelected:styles.notSelected}>
                             Now Playing
@@ -52,7 +53,7 @@ const movies = (props) =>  {
                     </View>
                 </TouchableWithoutFeedback>
                 <TouchableWithoutFeedback
-                    onPress={() => click("Upcoming",upcomingMovies)}>
+                    onPress={() => onClick("Upcoming")}>
                     <View style={styles.category}>
                         <Text style={(category === "Upcoming")?styles.btnSelected:styles.notSelected}>
                             Upcoming
@@ -60,7 +61,7 @@ const movies = (props) =>  {
                     </View>
                 </TouchableWithoutFeedback>
                 <TouchableWithoutFeedback
-                    onPress={() => click("Top Rated",topMovies)}>
+                    onPress={() => onClick("Top Rated")}>
                     <View style={styles.category}>
                         <Text style={(category === "Top Rated")?styles.btnSelected:styles.notSelected}>
                             Top Rated
@@ -69,7 +70,7 @@ const movies = (props) =>  {
                 </TouchableWithoutFeedback>
             </View>
             <View style={{marginTop:5}}>
-                <MovieContainer movies={films} name={category} />
+                <MovieContainer movies={movies} name={category} />
             </View>
         </View>
     )

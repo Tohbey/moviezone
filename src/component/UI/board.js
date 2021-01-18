@@ -11,7 +11,7 @@ const board = ({poster,title,date, rating, overview, genre, popularity}) => {
     return (
         <View style={styles.board}>
             <View style={styles.left}>
-                <Text>Image</Text>
+                <Image />
             </View>
             <View style={styles.right}>
                 <View style={{flexDirection:'row', justifyContent:'space-between'}}>
@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
         width:'100%',
         height:135,
         marginTop:5,
+        marginBottom:5,
         flexDirection:'row',
         borderTopWidth:1,
         borderBottomWidth:1,
@@ -41,7 +42,6 @@ const styles = StyleSheet.create({
     },
     left:{
         width:140,
-        borderWidth:1,
         marginRight:5
     },
     right:{

@@ -1,5 +1,5 @@
 import {
-    GET_LATEST,
+    GET_MOVIES,
     GET_NOW_PLAYING,
     GET_POPULAR,
     GET_UPCOMING,
@@ -11,7 +11,7 @@ import {
 
 
 const initialState = {
-    latest: [],
+    movies: [],
     nowPlaying: [],
     upComing: [],
     popular: [],
@@ -28,11 +28,27 @@ export const Movie = (state = initialState,action) => {
                 ...state,
                 loading: true
             }
-        case GET_LATEST:
-            return{
-                ...state,
-                loading: false,
-                latest: action.payload
+        case GET_MOVIES:
+            if(action.payload === "Popular"){
+                return{
+                    ...state,
+                    movies: state.popular
+                }
+            }else if(action.payload === "Now Playing"){
+                return{
+                    ...state,
+                    movies: state.nowPlaying
+                }
+            }else if(action.payload === "Upcoming"){
+                return{
+                    ...state,
+                    movies: state.upComing
+                }
+            }else{
+                return{
+                    ...state,
+                    movies: state.topRated
+                }
             }
         case GET_POPULAR:
             return{

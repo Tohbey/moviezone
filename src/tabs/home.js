@@ -51,15 +51,15 @@ const home = (props) =>  {
       getUpcoming()
       getTrending()  
     },[])
-
+    let movies = "Movies";
     return (
         <ScrollView >
             <View style={styles.container}>
-                <MovieSlider movies={popularMovies} name={popular} navigation={props.navigation} screen={popular} />
-                <MovieSlider movies={playingMovie} name={nowPlaying} navigation={props.navigation} screen='NowPlaying' />
-                <MovieSlider movies={topMovies} name={topRated} navigation={props.navigation} screen='TopRated' />
-                <MovieSlider movies={trendingMovies} name={trending} navigation={props.navigation} screen='' />
-                <MovieSlider movies={upcomingMovies} name={upComing} navigation={props.navigation} screen={upComing} />
+                <MovieSlider movies={popularMovies} name={popular} navigation={props.navigation} screen={movies} category="Popular"/>
+                <MovieSlider movies={playingMovie} name={nowPlaying} navigation={props.navigation} screen={movies} category="Now Playing"/>
+                <MovieSlider movies={topMovies} name={topRated} navigation={props.navigation} screen={movies} category="Top Rated"/>
+                <MovieSlider movies={trendingMovies} name={trending} navigation={props.navigation} screen={movies} />
+                <MovieSlider movies={upcomingMovies} name={upComing} navigation={props.navigation} screen={movies} category="Upcoming"/>
             </View>
         </ScrollView>
     )

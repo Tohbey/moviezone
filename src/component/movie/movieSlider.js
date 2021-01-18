@@ -4,13 +4,13 @@ import {
 } from 'react-native'
 import Card from '../UI/card'
 
-const movieSlider = ({movies, name, navigation, screen}) => {
+const movieSlider = ({movies, name, navigation, screen, category}) => {
     return (
         <View style={styles.container}>
             <View style={{flexDirection:'row', justifyContent:'space-between',alignItems:'center'}}>
                 <Text style={styles.header}>{name}</Text>
                 <TouchableOpacity
-                    onPress={() => navigation.navigate(screen)}>
+                    onPress={() => navigation.navigate(screen,{category})}>
                     <View>
                         <Text>Sell all</Text>
                     </View>
@@ -18,12 +18,12 @@ const movieSlider = ({movies, name, navigation, screen}) => {
             </View>
             <View>
                 <ScrollView horizontal={true}>
-                    {movies.slice(0,10).map((movie,i) => (
+                    {movies?.slice(0,10).map((movie,i) => (
                         <Card key={i}
-                            title={movie.title}
-                            date={movie.release_date}
-                            rating={movie.vote_average}
-                            poster={movie.poster_path}
+                            title={movie?.title}
+                            date={movie?.release_date}
+                            rating={movie?.vote_average}
+                            poster={movie?.poster_path}
                         />
                     ))}
                 </ScrollView>

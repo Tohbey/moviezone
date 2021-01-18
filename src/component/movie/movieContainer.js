@@ -11,14 +11,14 @@ const movieContainer = ({movies,name})  => {
                 {name}
             </Text>
             <ScrollView>
-                {movies.map((movie,i) => (
+                {movies?.map((movie,i) => (
                     <Board 
                         key={i} 
-                        title={movie.title}
-                        date={movie.release_date}
-                        overview={movie.overview}
-                        rating={movie.vote_average}
-                        popularity={movie.popularity}
+                        title={movie?.title}
+                        date={movie?.release_date}
+                        overview={movie?.overview}
+                        rating={movie?.vote_average}
+                        popularity={movie?.popularity}
                     />
                 ))}
             </ScrollView>
