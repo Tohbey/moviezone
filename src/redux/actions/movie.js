@@ -1,33 +1,14 @@
 import { 
-    FETCH_REQUEST,
-    GET_MOVIES,
-    FETCH_FAILURE,
-    GET_LATEST,
-    GET_NOW_PLAYING,
-    GET_POPULAR,
-    GET_UPCOMING,
-    GET_TOP_RATED
+    FETCH_REQUEST, FETCH_FAILURE, GET_LATEST, GET_NOW_PLAYING, GET_POPULAR, GET_UPCOMING, GET_TOP_RATED, GET_TRENDING
 } from '../actionTypes/movie'
 import Client from '../../services/HTTPClient';
 import { 
-    BASE_URL_MOVIE, 
-    LATEST_MOVIE, 
-    NOW_PLAYING_MOVIE, 
-    POPULAR_URL_MOVIE, 
-    TOP_RATED_URL_MOVIE, 
-    UPCOMING_MOVIE 
+    BASE_URL_MOVIE, LATEST_MOVIE, NOW_PLAYING_MOVIE, POPULAR_URL_MOVIE, TOP_RATED_URL_MOVIE, UPCOMING_MOVIE, TRENDING, BASE_URL 
 } from '../../utils/constant'
 
 export const fetchRequest = () => {
     return{
         type: FETCH_REQUEST
-    }
-}
-
-export const getMovies = (movies) => {
-    return{
-        type: GET_MOVIES,
-        payload: movies
     }
 }
 
@@ -70,6 +51,13 @@ export const getTopRated = (topRated) => {
     return{
         type: GET_TOP_RATED,
         payload: topRated
+    }
+}
+
+export const getTrending = (trending) => {
+    return{
+        type: GET_TRENDING,
+        payload: trending
     }
 }
 
@@ -131,7 +119,20 @@ export const fetchLatest = () => async(dispatch) => {
         const client = new Client(BASE_URL_MOVIE)
 
         const res = await client.get(LATEST_MOVIE+"&page=1")
-        dispatch(getLatest(res.results))
+        dispatch(getLatest(res))
+    } catch (error) {
+        dispatch(fetchFailure(error))
+        console.log(error)
+    }
+}
+
+export const fetchTrending = () => async(dispatch) => {
+    dispatch(fetchRequest())
+    try {
+        const client = new Client(BASE_URL)
+
+        const res = await client.get(TRENDING)
+        dispatch(getTrending(res.results))
     } catch (error) {
         dispatch(fetchFailure(error))
         console.log(error)

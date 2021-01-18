@@ -1,20 +1,22 @@
 import {
-    GET_MOVIES,
     GET_LATEST,
     GET_NOW_PLAYING,
     GET_POPULAR,
     GET_UPCOMING,
     FETCH_FAILURE,
-    FETCH_REQUEST
+    FETCH_REQUEST,
+    GET_TOP_RATED,
+    GET_TRENDING
 } from '../actionTypes/movie'
 
 
 const initialState = {
-    movies: [],
-    lastest: [],
+    latest: [],
     nowPlaying: [],
     upComing: [],
     popular: [],
+    topRated: [],
+    trending: [],
     loading: false,
     error:""
 }
@@ -26,17 +28,11 @@ export const Movie = (state = initialState,action) => {
                 ...state,
                 loading: true
             }
-        case GET_MOVIES:
-            return{
-                ...state,
-                loading: false,
-                movies: action.payload
-            }
         case GET_LATEST:
             return{
                 ...state,
                 loading: false,
-                lastest: action.payload
+                latest: action.payload
             }
         case GET_POPULAR:
             return{
@@ -55,6 +51,18 @@ export const Movie = (state = initialState,action) => {
                 ...state,
                 loading: false,
                 upComing: action.payload
+            }
+        case GET_TOP_RATED:
+            return{
+                ...state,
+                loading: false,
+                topRated: action.payload
+            }
+        case GET_TRENDING:
+            return{
+                ...state,
+                loading: false,
+                trending: action.payload
             }
         case FETCH_FAILURE:
             return{

@@ -5,12 +5,13 @@ import {
     StyleSheet,
     Image
 } from 'react-native';
-import { IMAGE_BASE_URL } from '../../utils/constant'
+
 
 const card = ({poster,title,date, rating}) =>  {
+    const uri = "https://image.tmdb.org/t/p/w138"+poster;
     return (
         <View style={styles.card}>
-            <Image source={poster} style={styles.image}/>
+            <Image source={{uri}} />
             <Text>{title}</Text>
             <View style={{flexDirection:'row',justifyContent:'space-between'}}>
                 <Text>{date}</Text>
