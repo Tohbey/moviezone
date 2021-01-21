@@ -14,6 +14,9 @@ export const  LATEST_MOVIE = "/latest"+API_KEY;
 export const  BASE_URL_TVSHOW = "https://api.themoviedb.org/3/tv";
 export const  POPULAR_URL_TVSHOW = "/popular"+API_KEY;
 export const  TOP_RATED_URL_TVSHOW = "/top_rated"+API_KEY;
+export const  AIRING_TODAY = "/airing_today"+API_KEY
+export const  ON_AIR = "/on_the_air"+API_KEY
+
 export const  SEARCH_MOVIE = "https://api.themoviedb.org/3/search/movie"+API_KEY;
 
 export const  POPULARITY = "popularity";

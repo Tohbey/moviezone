@@ -1,57 +1,101 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { 
     View,
     Text,
     StyleSheet,
     TouchableWithoutFeedback,
-    Image,
-    ScrollView,
-    Dimensions,
 } from 'react-native';
-const series = () =>  {
-    const [button, setbutton] = useState('Popular')
+import MovieContainer from '../component/movie/movieContainer';
+import { 
+    fetchPopularShows, 
+    fetchOnAirShows, 
+    fetchTopRatedShows, 
+    fetchAiringTodayShows,
+    getTvShows
+} from '../redux/actions/series'
+import AntDesign from 'react-native-vector-icons/AntDesign';
+
+const series = (props) =>  {
+    let series = [];
+    let onAir = [];
+    let airingShows = [];
+    let popularShows = []
+    let topRatedShows = [];
+
+    const dispatch = useDispatch()
+
+    const [category, setcategory] = useState('Popular')
+
+    const getPopularShows = () => dispatch(fetchPopularShows());
+    const getOnAirShows = () => dispatch(fetchOnAirShows());
+    const getTopRatedShows = () => dispatch(fetchTopRatedShows());
+    const getAiringShows = () => dispatch(fetchAiringTodayShows());
+    const getSeries = (category) => dispatch(getTvShows(category))
+
+    useSelector(state => {
+        onAir = state.serie.onAir;
+        airingShows = state.serie.airingToday;
+        popularShows = state.serie.popular;
+        topRatedShows = state.serie.topRated;
+        series = state.serie.series
+    })
+
+    useEffect(() => {
+        getPopularShows();
+        getOnAirShows();
+        getTopRatedShows();
+        getAiringShows();
+        getSeries(category)
+    },[])
+
+    const onClick = (category) => {
+        setcategory(category)
+        getSeries(category)
+    }
 
     return (
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.mainHeader}>Tv Shows</Text>
+                <AntDesign name="search1" size={24} />
+            </View>
+            <View style={{flexDirection:'row',justifyContent:'space-evenly'}}>
                 <TouchableWithoutFeedback
-                    onPress={() => setbutton("Popular")}>
+                    onPress={() => onClick("Popular")}>
                     <View style={styles.button}>
-                        <Text style={(button === "Popular")?styles.btnSelected:styles.notSelected}>
+                        <Text style={(category === "Popular")?styles.btnSelected:styles.notSelected}>
                             Popular
                         </Text>
                     </View>
                 </TouchableWithoutFeedback>
                 <TouchableWithoutFeedback
-                    onPress={() => setbutton("Now Playing")}>
+                    onPress={() => onClick("On Air")}>
                     <View style={styles.button}>
-                        <Text style={(button === "Now Playing")?styles.btnSelected:styles.notSelected}>
-                            Now Playing
+                        <Text style={(category === "On Air")?styles.btnSelected:styles.notSelected}>
+                            On Air
                         </Text>
                     </View>
                 </TouchableWithoutFeedback>
                 <TouchableWithoutFeedback
-                    onPress={() => setbutton("Upcoming")}>
+                    onPress={() => onClick("Top Rated")}>
                     <View style={styles.button}>
-                        <Text style={(button === "Upcoming")?styles.btnSelected:styles.notSelected}>
-                            Upcoming
-                        </Text>
-                    </View>
-                </TouchableWithoutFeedback>
-                <TouchableWithoutFeedback
-                    onPress={() => setbutton("Top Rated")}>
-                    <View style={styles.button}>
-                        <Text style={(button === "Top Rated")?styles.btnSelected:styles.notSelected}>
+                        <Text style={(category === "Top Rated")?styles.btnSelected:styles.notSelected}>
                             Top Rated
+                        </Text>
+                    </View>
+                </TouchableWithoutFeedback>
+                <TouchableWithoutFeedback
+                    onPress={() => onClick("Airing Today")}>
+                    <View style={styles.button}>
+                        <Text style={(category === "Airing Today")?styles.btnSelected:styles.notSelected}>
+                            Airing Today
                         </Text>
                     </View>
                 </TouchableWithoutFeedback>
             </View>
             <View style={{marginTop:5}}>
-                <Text style={{marginLeft:10, fontSize:20,color:'black'}}>
-                    {button}
-                </Text>
+                <MovieContainer movies={series} name={category} />
             </View>
         </View>
     )
@@ -59,13 +103,13 @@ const series = () =>  {
 
 const styles = StyleSheet.create({
     container:{
-        backgroundColor:'white',
         flex:1
     },
     header:{
         flexDirection:'row',
         padding:10,
-        alignItems:'center'
+        alignItems:'center',
+        justifyContent:'space-between'
     },
 
     mainHeader:{

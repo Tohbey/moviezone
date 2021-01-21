@@ -15,8 +15,6 @@ const customTabBarStyle = {
     inactiveTintColor:"grey",
     style:{
       backgroundColor:'white',
-      borderTopLeftRadius:30,
-      borderTopRightRadius:30,
       height:70,
       paddingBottom:10
     },

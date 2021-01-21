@@ -1,0 +1,7 @@
+export const FETCH_REQUEST = "FETCH_REQUEST" 
+export const FETCH_FAILURE = "FETCH_FAILURE"
+export const GET_SERIES = "GET_SERIES"
+export const GET_POPULAR = "GET_POPULAR"
+export const GET_TOP_RATED = "GET_TOP_RATED"
+export const GET_TV_AIRING_TODAY = "GET_TV_AIRING_TODAY"
+export const GET_TV_ON_AIR = "GET_TV_ON_AIR"

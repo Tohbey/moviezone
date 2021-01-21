@@ -7,22 +7,21 @@ import {
 } from 'react-native';
 import {windowHeight, windowWidth} from '../../utils/dimensions';
 
-const board = ({poster,title,date, rating, overview, genre, popularity}) => {
+const board = ({poster,title, rating, overview, genre, popularity}) => {
     return (
         <View style={styles.board}>
             <View style={styles.left}>
-                <Image />
+                <View style={styles.imageHolder}></View>
             </View>
             <View style={styles.right}>
                 <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                    <Text>{title}</Text> 
-                    <Text>{date}</Text>
+                    <Text style={styles.title}>{title}</Text> 
+                    <Text style={styles.rating}>{rating}</Text>
                 </View>
                 <Text numberOfLines={3}>{overview}</Text>
                 <Text>{genre}</Text>
                 <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                    <Text>{rating}</Text>
-                    <Text>{popularity}</Text>
+                    <Text>Popularity: {popularity}</Text>
                 </View>
             </View>
         </View>
@@ -31,22 +30,50 @@ const board = ({poster,title,date, rating, overview, genre, popularity}) => {
 
 const styles = StyleSheet.create({
     board:{
-        width:'100%',
         height:135,
-        marginTop:5,
-        marginBottom:5,
         flexDirection:'row',
-        borderTopWidth:1,
-        borderBottomWidth:1,
-        borderColor:'black'
+        backgroundColor:'white',
+        borderRadius:10,
+        marginTop:30,
+        marginLeft:10,
+        marginRight: 10,
+        marginBottom:10,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.20,
+        shadowRadius: 1.41,
+
+        elevation: 2,
     },
     left:{
         width:140,
-        marginRight:5
+        marginRight:5,
+        position:'relative'
+    },
+    imageHolder:{
+        position: 'absolute',
+        width: 120,
+        height: 135,
+        borderWidth: 2,
+        bottom: 20,
+        left:15
     },
     right:{
         padding:3,
-        width: windowWidth - 150
+        width: windowWidth - 170
+    },
+    title:{
+        fontSize:16,
+        fontWeight:'bold',
+        color:'black'
+    },
+    rating:{
+        fontSize:16, 
+        color:'#935DFF',
+        fontWeight:'bold'
     }
 })
 

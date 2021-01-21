@@ -4,15 +4,13 @@ import {
     View,
     Text,
     StyleSheet,
-    TouchableWithoutFeedback,
-    ScrollView,
+    TouchableWithoutFeedback
 } from 'react-native';
 import MovieContainer from '../component/movie/movieContainer';
 import { getMovies } from '../redux/actions/movie';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const movies = ({route}) =>  {
-    console.log(route.params.category)
-    
     const [category, setcategory] = useState('Popular')
     let movies = []
     const dispatch = useDispatch()
@@ -36,38 +34,41 @@ const movies = ({route}) =>  {
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.mainHeader}>Movies</Text>
+                <AntDesign name="search1" size={24} />
+            </View>
+            <View style={{flexDirection:'row',justifyContent:'space-evenly'}}>
                 <TouchableWithoutFeedback
-                    onPress={() => onClick("Popular")}>
-                    <View style={styles.category}>
-                        <Text style={(category === "Popular")?styles.btnSelected:styles.notSelected}>
-                            Popular
-                        </Text>
-                    </View>
-                </TouchableWithoutFeedback>
-                <TouchableWithoutFeedback
-                    onPress={() => onClick("Now Playing")}>
-                    <View style={styles.category}>
-                        <Text style={(category === "Now Playing")?styles.btnSelected:styles.notSelected}>
-                            Now Playing
-                        </Text>
-                    </View>
-                </TouchableWithoutFeedback>
-                <TouchableWithoutFeedback
-                    onPress={() => onClick("Upcoming")}>
-                    <View style={styles.category}>
-                        <Text style={(category === "Upcoming")?styles.btnSelected:styles.notSelected}>
-                            Upcoming
-                        </Text>
-                    </View>
-                </TouchableWithoutFeedback>
-                <TouchableWithoutFeedback
-                    onPress={() => onClick("Top Rated")}>
-                    <View style={styles.category}>
-                        <Text style={(category === "Top Rated")?styles.btnSelected:styles.notSelected}>
-                            Top Rated
-                        </Text>
-                    </View>
-                </TouchableWithoutFeedback>
+                        onPress={() => onClick("Popular")}>
+                        <View style={styles.category}>
+                            <Text style={(category === "Popular")?styles.btnSelected :styles.notSelected}>
+                                Popular
+                            </Text>
+                        </View>
+                    </TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback
+                        onPress={() => onClick("Now Playing")}>
+                        <View style={styles.category}>
+                            <Text style={(category === "Now Playing")?styles.btnSelected :styles.notSelected}>
+                                Now Playing
+                            </Text>
+                        </View>
+                    </TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback
+                        onPress={() => onClick("Upcoming")}>
+                        <View style={styles.category}>
+                            <Text style={(category === "Upcoming")?styles.btnSelected:styles.notSelected}>
+                                Upcoming
+                            </Text>
+                        </View>
+                    </TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback
+                        onPress={() => onClick("Top Rated")}>
+                        <View style={styles.category}>
+                            <Text style={(category === "Top Rated")?styles.btnSelected:styles.notSelected}>
+                                Top Rated
+                            </Text>
+                        </View>
+                    </TouchableWithoutFeedback>
             </View>
             <View style={{marginTop:5}}>
                 <MovieContainer movies={movies} name={category} />
@@ -78,13 +79,13 @@ const movies = ({route}) =>  {
 
 const styles = StyleSheet.create({
     container:{
-        backgroundColor:'white',
         flex:1
     },
     header:{
         flexDirection:'row',
         padding:10,
-        alignItems:'center'
+        alignItems:'center',
+        justifyContent:'space-between'
     },
 
     mainHeader:{
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
     },
     btnSelected:{
         fontWeight:'bold',
-        color:'black'
+        color:'#935DFF',
     },
     notSelected:{
         fontWeight:'100',

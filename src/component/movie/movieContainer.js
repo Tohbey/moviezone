@@ -15,7 +15,6 @@ const movieContainer = ({movies,name})  => {
                     <Board 
                         key={i} 
                         title={movie?.title}
-                        date={movie?.release_date}
                         overview={movie?.overview}
                         rating={movie?.vote_average}
                         popularity={movie?.popularity}
