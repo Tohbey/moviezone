@@ -7,8 +7,8 @@ const initialState = {
     series: [],
     onAir: [],
     airingToday: [],
-    popular: [],
-    topRated: [],
+    popularTvShow: [],
+    topRatedTvShow: [],
     loading: false,
     error:""
 }
@@ -24,7 +24,7 @@ export const Series = (state = initialState,action) => {
             if(action.payload === "Popular"){
                 return{
                     ...state,
-                    series: state.popular
+                    series: state.popularTvShow
                 }
             }else if(action.payload === "On Air"){
                 return{
@@ -34,7 +34,7 @@ export const Series = (state = initialState,action) => {
             }else if(action.payload === "Top Rated"){
                 return{
                     ...state,
-                    series: state.topRated
+                    series: state.topRatedTvShow
                 }
             }else{
                 return{
@@ -46,13 +46,13 @@ export const Series = (state = initialState,action) => {
             return{
                 ...state,
                 loading: false,
-                popular: action.payload
+                popularTvShow: action.payload
             }
         case GET_TOP_RATED:
             return{
                 ...state,
                 loading: false,
-                topRated: action.payload
+                topRatedTvShow: action.payload
             }
         case GET_TV_AIRING_TODAY:
             return{

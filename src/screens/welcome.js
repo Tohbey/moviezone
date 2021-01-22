@@ -70,26 +70,26 @@ const welcome = (props) =>  {
                 {
                     backgroundColor:'#f4f2f0',
                     image: <Image source={popcorn} />,
-                    title:'Onboarding',
-                    subtitle:'Done with react native onboarding'
+                    title:'Movie Zone',
+                    subtitle:'Check out the lastest movies here'
                 },
                 {
                     backgroundColor:'#D0D7DF',
                     image: <Image source={video} style={{width:200,height:200}}/>,
-                    title:'Onboarding',
-                    subtitle:'Done with react native onboarding'
+                    title:'Tv Shows',
+                    subtitle:'Get updated on the latest tv drams'
                 },
                 {
                     backgroundColor:'#adddfb',
                     image: <Image source={videoCamera} style={{width:200,height:200}}/>,
-                    title:'Onboarding',
-                    subtitle:'Done with react native onboarding'
+                    title:'Watch',
+                    subtitle:'Watch your favority movie here'
                 },
                 {
                     backgroundColor:'#c3e4ec',
                     image: <Image source={camera} style={{width:220,height:220}}/>,
-                    title:'Onboarding',
-                    subtitle:'Done with react native onboarding'
+                    title:'Discover',
+                    subtitle:'Discover and share a constantly'
                 }
             ]}
         />

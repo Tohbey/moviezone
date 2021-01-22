@@ -27,31 +27,26 @@ const series = (props) =>  {
 
     const [category, setcategory] = useState('Popular')
 
-    const getPopularShows = () => dispatch(fetchPopularShows());
-    const getOnAirShows = () => dispatch(fetchOnAirShows());
-    const getTopRatedShows = () => dispatch(fetchTopRatedShows());
-    const getAiringShows = () => dispatch(fetchAiringTodayShows());
-    const getSeries = (category) => dispatch(getTvShows(category))
 
     useSelector(state => {
         onAir = state.serie.onAir;
         airingShows = state.serie.airingToday;
-        popularShows = state.serie.popular;
-        topRatedShows = state.serie.topRated;
+        popularShows = state.serie.popularTvShow;
+        topRatedShows = state.serie.topRatedTvShow;
         series = state.serie.series
     })
-
+    
     useEffect(() => {
-        getPopularShows();
-        getOnAirShows();
-        getTopRatedShows();
-        getAiringShows();
-        getSeries(category)
+        dispatch(fetchPopularShows());
+        dispatch(fetchOnAirShows());
+        dispatch(fetchTopRatedShows());
+        dispatch(fetchAiringTodayShows());
+        dispatch(getTvShows(category))
     },[])
 
     const onClick = (category) => {
         setcategory(category)
-        getSeries(category)
+        dispatch(getTvShows(category))
     }
 
     return (
@@ -95,7 +90,7 @@ const series = (props) =>  {
                 </TouchableWithoutFeedback>
             </View>
             <View style={{marginTop:5}}>
-                <MovieContainer movies={series} name={category} />
+                <MovieContainer movies={series} name={category} navigation={props.navigation} screen="serieDetail"/>
             </View>
         </View>
     )
@@ -123,7 +118,7 @@ const styles = StyleSheet.create({
     },
     btnSelected:{
         fontWeight:'bold',
-        color:'black'
+        color:'#935DFF',
     },
     notSelected:{
         fontWeight:'100',

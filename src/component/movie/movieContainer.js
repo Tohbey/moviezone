@@ -4,7 +4,7 @@ import {
 } from 'react-native'
 import Board from '../UI/board'
 
-const movieContainer = ({movies,name})  => {
+const movieContainer = ({movies,name,navigation,screen})  => {
     return (
         <View>
             <Text style={{marginLeft:10, fontSize:20,color:'black'}}>
@@ -14,10 +14,14 @@ const movieContainer = ({movies,name})  => {
                 {movies?.map((movie,i) => (
                     <Board 
                         key={i} 
-                        title={movie?.title}
+                        title={movie?.title} 
                         overview={movie?.overview}
                         rating={movie?.vote_average}
                         popularity={movie?.popularity}
+                        poster={movie.poster_path}
+                        navigation={navigation}
+                        screen={screen}
+                        id={movie.id}
                     />
                 ))}
             </ScrollView>

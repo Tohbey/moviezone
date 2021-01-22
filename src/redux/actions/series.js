@@ -21,24 +21,24 @@ export const fetchFailure = (error) => {
     }
 }
 
-export const getTvShows = (category) => {
+export const getTvShows = (category = "Popular") => {
     return{
         type: GET_SERIES,
         payload: category
     }
 }
 
-export const getPopularTvShow = (popular) => {
+export const getPopularTvShow = (popularTvShow) => {
     return{
         type: GET_POPULAR,
-        payload: popular
+        payload: popularTvShow
     }
 }
 
-export const getTopRatedTvShow = (topRated) => {
+export const getTopRatedTvShow = (topRatedTvShow) => {
     return{
         type: GET_TOP_RATED,
-        payload: topRated
+        payload: topRatedTvShow
     }
 }
 
@@ -62,7 +62,7 @@ export const fetchPopularShows = () => async(dispatch) => {
         const client = new Client(BASE_URL_TVSHOW)
         
         const res = await client.get(POPULAR_URL_TVSHOW+"&page=1")
-        dispatch(getPopularTvShow(res.result))
+        dispatch(getPopularTvShow(res.results))
     } catch (error) {
         dispatch(fetchFailure(error))
     }
@@ -75,7 +75,7 @@ export const fetchTopRatedShows = () => async(dispatch) => {
     
         const res = await client.get(TOP_RATED_URL_TVSHOW+"&page=1")    
         
-        dispatch(getTopRatedTvShow(res.result))
+        dispatch(getTopRatedTvShow(res.results))
     } catch (error) {
         dispatch(fetchFailure(error))
     }
@@ -86,9 +86,8 @@ export const fetchOnAirShows = () => async(dispatch) => {
     try {
         const client = new Client(BASE_URL_TVSHOW)
         
-        const res = await client.get(ON_AIR+"&page=1")
-
-        dispatch(getOnAirTvShows(res.result)) 
+        const res = await client.get(ON_AIR+"&page=1")        
+        dispatch(getOnAirTvShows(res.results)) 
     } catch (error) {
         dispatch(fetchFailure(error))
     }
@@ -101,7 +100,7 @@ export const fetchAiringTodayShows = () => async(dispatch) => {
     
         const res = await client.get(AIRING_TODAY+"&page=1")
 
-        dispatch(getAiringToday(res.result)) 
+        dispatch(getAiringToday(res.results)) 
     } catch (error) {
         dispatch(fetchFailure(error))
     }

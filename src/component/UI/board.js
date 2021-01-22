@@ -3,28 +3,35 @@ import {
     View,
     Text,
     StyleSheet,
-    Image
+    Image,
+    TouchableWithoutFeedback
 } from 'react-native';
 import {windowHeight, windowWidth} from '../../utils/dimensions';
+import { IMAGE_BASE_URL } from '../../utils/constant'
 
-const board = ({poster,title, rating, overview, genre, popularity}) => {
+const board = ({poster,title, rating, overview, genre, popularity,navigation,screen,id}) => {
     return (
-        <View style={styles.board}>
-            <View style={styles.left}>
-                <View style={styles.imageHolder}></View>
-            </View>
-            <View style={styles.right}>
-                <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                    <Text style={styles.title}>{title}</Text> 
-                    <Text style={styles.rating}>{rating}</Text>
+        <TouchableWithoutFeedback
+            onPress={() => navigation.navigate(screen,{id})}>
+            <View style={styles.board}>
+                <View style={styles.left}>
+                    <View style={styles.imageHolder}>
+                        <Image source={{uri:IMAGE_BASE_URL+poster}}/>
+                    </View>
                 </View>
-                <Text numberOfLines={3}>{overview}</Text>
-                <Text>{genre}</Text>
-                <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                    <Text>Popularity: {popularity}</Text>
+                <View style={styles.right}>
+                    <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                        <Text style={styles.title}>{title}</Text> 
+                        <Text style={styles.rating}>{rating}</Text>
+                    </View>
+                    <Text numberOfLines={3}>{overview}</Text>
+                    <Text>{genre}</Text>
+                    <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                        <Text>Popularity: {popularity}</Text>
+                    </View>
                 </View>
             </View>
-        </View>
+        </TouchableWithoutFeedback>    
     )
 }
 

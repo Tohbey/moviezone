@@ -10,7 +10,7 @@ import MovieContainer from '../component/movie/movieContainer';
 import { getMovies } from '../redux/actions/movie';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-const movies = ({route}) =>  {
+const movies = (props,{route}) =>  {
     const [category, setcategory] = useState('Popular')
     let movies = []
     const dispatch = useDispatch()
@@ -71,7 +71,7 @@ const movies = ({route}) =>  {
                     </TouchableWithoutFeedback>
             </View>
             <View style={{marginTop:5}}>
-                <MovieContainer movies={movies} name={category} />
+                <MovieContainer movies={movies} name={category} navigation={props.navigation} screen="movieDetail"/>
             </View>
         </View>
     )
