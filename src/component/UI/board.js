@@ -7,26 +7,30 @@ import {
     TouchableWithoutFeedback
 } from 'react-native';
 import {windowHeight, windowWidth} from '../../utils/dimensions';
-import { IMAGE_BASE_URL, BASE_URL_TVSHOW, BASE_URL_MOVIE } from '../../utils/constant'
+import { IMAGE_BASE_URL, BASE_URL_TVSHOW, BASE_URL_MOVIE, API_KEY } from '../../utils/constant'
 import Client from '../../services/HTTPClient'
 
-const board = ({poster,title, rating, overview, genre, popularity,navigation,screen,id}) => {
+
+const board = ({poster,title, rating, overview, popularity,navigation,screen,id}) => {
     let genres = [];
 
-    const getGenre = (movieId) => async() => {
-        let uri = (screen === "serieDetail") ? BASE_URL_TVSHOW : BASE_URL_MOVIE;
-        console.log('link',uri)
-        const client = new Client(uri)
-        
-        const res = client.get("/"+movieId)
-        console.log('working')
-        console.log(res.genres)
+    const getGenre = async(movieId) => {
+        try {
+            let uri = (screen === "serieDetail") ? BASE_URL_TVSHOW : BASE_URL_MOVIE;
+            const client = new Client(uri)
+            
+            const res = await client.get("/"+movieId+API_KEY)
+            genres = res.genres   
+            console.log(genres)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     useEffect(() => {
         getGenre(id)
     }, [])
-    
+
     return (
         <TouchableWithoutFeedback
             onPress={() => navigation.navigate(screen,{id})}>
@@ -38,11 +42,13 @@ const board = ({poster,title, rating, overview, genre, popularity,navigation,scr
                 </View>
                 <View style={styles.right}>
                     <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                        <Text style={styles.title}>{title}</Text> 
+                        <Text style={styles.title} numberOfLines={1}>{title}</Text> 
                         <Text style={styles.rating}>{rating}</Text>
                     </View>
                     <Text numberOfLines={3}>{overview}</Text>
-                    <Text>{genre}</Text>
+                    {genres.map((genre, i) => (
+                        <Text key={i}>{genre}</Text>
+                    ))}
                     <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                         <Text>Popularity: {popularity}</Text>
                     </View>
@@ -91,6 +97,7 @@ const styles = StyleSheet.create({
     },
     title:{
         fontSize:16,
+        width:200,
         fontWeight:'bold',
         color:'black'
     },
