@@ -14,7 +14,7 @@ const movieContainer = ({movies,name,navigation,screen})  => {
                 {movies?.map((movie,i) => (
                     <Board 
                         key={i} 
-                        title={movie?.title} 
+                        title={movie?.title ?? movie.name} 
                         overview={movie?.overview}
                         rating={movie?.vote_average}
                         popularity={movie?.popularity}

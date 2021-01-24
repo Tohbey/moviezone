@@ -1,0 +1,4 @@
+export const FETCH_REQUEST = "FETCH_REQUEST";
+export const FETCH_FAILURE = "FETCH_FAILURE";
+export const GET_MOVIE_DETAIL = "GET_MOVIE_DETAIL";
+export const GET_SERIE_DETAIL = "GET_SERIE_DETAIL";

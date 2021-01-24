@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { 
     View,
     Text,
@@ -7,9 +7,26 @@ import {
     TouchableWithoutFeedback
 } from 'react-native';
 import {windowHeight, windowWidth} from '../../utils/dimensions';
-import { IMAGE_BASE_URL } from '../../utils/constant'
+import { IMAGE_BASE_URL, BASE_URL_TVSHOW, BASE_URL_MOVIE } from '../../utils/constant'
+import Client from '../../services/HTTPClient'
 
 const board = ({poster,title, rating, overview, genre, popularity,navigation,screen,id}) => {
+    let genres = [];
+
+    const getGenre = (movieId) => async() => {
+        let uri = (screen === "serieDetail") ? BASE_URL_TVSHOW : BASE_URL_MOVIE;
+        console.log('link',uri)
+        const client = new Client(uri)
+        
+        const res = client.get("/"+movieId)
+        console.log('working')
+        console.log(res.genres)
+    }
+
+    useEffect(() => {
+        getGenre(id)
+    }, [])
+    
     return (
         <TouchableWithoutFeedback
             onPress={() => navigation.navigate(screen,{id})}>
