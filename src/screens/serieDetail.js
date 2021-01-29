@@ -1,5 +1,4 @@
-import React, { useContext, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState, useEffect } from 'react'
 import { 
     View,
     StyleSheet,
@@ -12,25 +11,35 @@ import {
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { windowHeight, windowWidth } from '../utils/dimensions';
-import { fetchSerie } from '../redux/actions/detail'
+import{
+    BASE_URL_TVSHOW, API_KEY
+} from '../utils/constant'
+import Client from '../services/HTTPClient';
 
 const serieDetail = (props) => {
-    let serie = {};
+    const [serie, setserie] = useState({})
+    const [isLoading, setisLoading] = useState(true)
 
     const serieId = props.route.params.id;
     console.log(serieId)
 
-    const dispatch = useDispatch();
 
-    const getSerieDetail = (id) => dispatch(fetchSerie(id));
+    const getSerieDetail = async(id) => {
+        try {
+            let client = new Client(BASE_URL_TVSHOW)
 
-    useSelector(state => {
-        serie = state.detail.serieDetail
-        console.log('serie detail',serie)
-    })
+            const res = await client.get("/"+id+API_KEY)
+            setserie(res)
+            setisLoading(false)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    
     useEffect(() => {
         getSerieDetail(serieId)
     }, [])
+
     return(
         <View style={styles.container}>
             <View style={styles.header}>

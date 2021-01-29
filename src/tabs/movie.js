@@ -4,7 +4,8 @@ import {
     View,
     Text,
     StyleSheet,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    TextInput
 } from 'react-native';
 import MovieContainer from '../component/movie/movieContainer';
 import { getMovies } from '../redux/actions/movie';
@@ -12,6 +13,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const movies = (props,{route}) =>  {
     const [category, setcategory] = useState('Popular')
+    const [display, setdisplay] = useState(false)
     let movies = []
     const dispatch = useDispatch()
 

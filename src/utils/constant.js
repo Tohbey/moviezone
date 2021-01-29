@@ -3,7 +3,7 @@ export const  API_KEY ="?api_key=f6c13184435fc3a20caac9d409e437bc";
 
 //movie
 export const  BASE_URL_MOVIE = "https://api.themoviedb.org/3/movie";
-export const  IMAGE_BASE_URL = "http://image.tmdb.org/t/p/w185";
+export const  IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 export const  POPULAR_URL_MOVIE = "/popular"+API_KEY;
 export const  TOP_RATED_URL_MOVIE = "/top_rated"+API_KEY;
 export const  NOW_PLAYING_MOVIE = "/now_playing"+API_KEY;

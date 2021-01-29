@@ -12,25 +12,24 @@ import Client from '../../services/HTTPClient'
 
 
 const board = ({poster,title, rating, overview, popularity,navigation,screen,id}) => {
-    let genres = [];
+    // let genres = [];
 
-    const getGenre = async(movieId) => {
-        try {
-            let uri = (screen === "serieDetail") ? BASE_URL_TVSHOW : BASE_URL_MOVIE;
-            const client = new Client(uri)
+    // const getGenre = async(movieId) => {
+    //     try {
+    //         let uri = (screen === "serieDetail") ? BASE_URL_TVSHOW : BASE_URL_MOVIE;
+    //         const client = new Client(uri)
             
-            const res = await client.get("/"+movieId+API_KEY)
-            genres = res.genres   
-            console.log(genres)
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    //         const res = await client.get("/"+movieId+API_KEY)
+    //         genres = res.genres   
+    //         console.log(genres)
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
 
-    useEffect(() => {
-        getGenre(id)
-    }, [])
-
+    // useEffect(() => {
+    //     getGenre(id)
+    // }, [])
     return (
         <TouchableWithoutFeedback
             onPress={() => navigation.navigate(screen,{id})}>
@@ -45,10 +44,7 @@ const board = ({poster,title, rating, overview, popularity,navigation,screen,id}
                         <Text style={styles.title} numberOfLines={1}>{title}</Text> 
                         <Text style={styles.rating}>{rating}</Text>
                     </View>
-                    <Text numberOfLines={3}>{overview}</Text>
-                    {genres.map((genre, i) => (
-                        <Text key={i}>{genre}</Text>
-                    ))}
+                    <Text numberOfLines={3} style={{marginBottom:5}}>{overview}</Text>
                     <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                         <Text>Popularity: {popularity}</Text>
                     </View>
