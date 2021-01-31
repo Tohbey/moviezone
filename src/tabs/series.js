@@ -15,6 +15,8 @@ import {
     getTvShows
 } from '../redux/actions/series'
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { SearchBar } from 'react-native-elements'
+
 
 const series = (props) =>  {
     let series = [];
@@ -26,7 +28,8 @@ const series = (props) =>  {
     const dispatch = useDispatch()
 
     const [category, setcategory] = useState('Popular')
-
+    const [display, setdisplay] = useState(false)
+    const [search, setsearch] = useState("")
 
     useSelector(state => {
         onAir = state.serie.onAir;
@@ -51,9 +54,12 @@ const series = (props) =>  {
 
     return (
         <View style={styles.container}>
+            { (display === false)? null : <SearchBar 
+               placeholder="Type here..." lightTheme={true} value={search} onChangeText={(search) => setsearch(search)}
+            />}
             <View style={styles.header}>
                 <Text style={styles.mainHeader}>Tv Shows</Text>
-                <AntDesign name="search1" size={24} />
+                <AntDesign name="search1" size={24} onPress={() => setdisplay(!display)}/>
             </View>
             <View style={{flexDirection:'row',justifyContent:'space-evenly'}}>
                 <TouchableWithoutFeedback

@@ -7,7 +7,7 @@ import {
     TouchableWithoutFeedback
 } from 'react-native';
 import {windowHeight, windowWidth} from '../../utils/dimensions';
-import { IMAGE_BASE_URL, BASE_URL_TVSHOW, BASE_URL_MOVIE, API_KEY } from '../../utils/constant'
+import { MAIN_IMAGE_URL, BASE_URL_TVSHOW, BASE_URL_MOVIE, API_KEY } from '../../utils/constant'
 import Client from '../../services/HTTPClient'
 
 
@@ -35,9 +35,7 @@ const board = ({poster,title, rating, overview, popularity,navigation,screen,id}
             onPress={() => navigation.navigate(screen,{id})}>
             <View style={styles.board}>
                 <View style={styles.left}>
-                    <View style={styles.imageHolder}>
-                        <Image source={{uri:IMAGE_BASE_URL+poster}}/>
-                    </View>
+                    <Image source={{uri:MAIN_IMAGE_URL+poster}} style={styles.imageHolder}/>
                 </View>
                 <View style={styles.right}>
                     <View style={{flexDirection:'row', justifyContent:'space-between'}}>

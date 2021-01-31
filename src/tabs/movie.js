@@ -10,10 +10,12 @@ import {
 import MovieContainer from '../component/movie/movieContainer';
 import { getMovies } from '../redux/actions/movie';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { SearchBar } from 'react-native-elements'
 
 const movies = (props,{route}) =>  {
     const [category, setcategory] = useState('Popular')
     const [display, setdisplay] = useState(false)
+    const [search, setsearch] = useState("")
     let movies = []
     const dispatch = useDispatch()
 
@@ -30,13 +32,17 @@ const movies = (props,{route}) =>  {
     const onClick = (category) => {
         setcategory(category)
         getMovie(category)
+        setdisplay(false)
     }
 
     return (
         <View style={styles.container}>
+            { (display === false)? null : <SearchBar 
+               placeholder="Type here..." lightTheme={true} value={search} onChangeText={(search) => setsearch(search)}
+            />}
             <View style={styles.header}>
                 <Text style={styles.mainHeader}>Movies</Text>
-                <AntDesign name="search1" size={24} />
+                <AntDesign name="search1" size={24} onPress={() => setdisplay(!display)}/>
             </View>
             <View style={{flexDirection:'row',justifyContent:'space-evenly'}}>
                 <TouchableWithoutFeedback

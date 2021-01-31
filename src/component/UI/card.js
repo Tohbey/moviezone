@@ -6,15 +6,15 @@ import {
     Image,
     TouchableWithoutFeedback
 } from 'react-native';
-
+import {
+    MAIN_IMAGE_URL
+} from '../../utils/constant'
 
 const card = ({poster,title,date, rating}) =>  {
-    const uri = "https://image.tmdb.org/t/p/w138"+poster;
     return (
         <TouchableWithoutFeedback>
             <View style={styles.card}>
-                <View style={styles.imageHolder}></View>
-                {/* <Image source={{uri}} /> */}
+                <Image source={{uri: MAIN_IMAGE_URL+poster}} style={styles.imageHolder}/>
                 <Text style={{fontSize:13, color:'black',fontWeight:'600'}}>{title}</Text>
                 <View style={{flexDirection:'row',justifyContent:'space-between'}}>
                     <Text>{date}</Text>

@@ -4,13 +4,15 @@ import {
     StyleSheet,
     ScrollView,
     Text,
-    Image
+    Image,
+    ImageBackground
 } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient'
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { windowHeight, windowWidth } from '../utils/dimensions';
 import{
-    BASE_URL_MOVIE, API_KEY,IMAGE_BASE_URL
+    BASE_URL_MOVIE, API_KEY,IMAGE_BASE_URL, IMAGE_BASE_URL_FACE
 } from '../utils/constant'
 import Client from '../services/HTTPClient';
 import Board from '../component/UI/board';
@@ -72,106 +74,112 @@ const movieDetail = (props) => {
 
     let revenue = Number(movie?.revenue).toLocaleString()
     return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <View style={styles.iconHolder}>
-                    <MaterialIcons name="keyboard-backspace" size={25} color="white" onPress={() => props.navigation.goBack()}/>
-                    <Entypo name="dots-three-horizontal" size={25} color="white"/>
-                </View>
-            </View>
-            <View style={styles.body}>
-                <View style={styles.imageHolder}></View>
-                <View style={styles.headerHolder}>
-                    <Text style={styles.title}>{movie?.original_title}</Text>
-                    <Text style={{fontSize:14, color:'black'}}>{movie?.release_date}</Text>
-                </View>
-                <View style={styles.bodyContainer}>
-                    <View style={{flexDirection:'row'}}>
-                        {movie?.genres?.map((genre,i) => (
-                            <View key={i} style={styles.genre}>
-                                <Text style={{color:'black'}}>{genre.name} </Text>
+        <ScrollView>
+            <View style={styles.container}>
+                <ImageBackground source={{uri:IMAGE_BASE_URL+movie.poster_path}} style={{width:'100%'}} imageStyle={{height:600}}>
+                    <LinearGradient colors={["#09203f", "#537895"]} style={{width: '100%',
+                        height: '100%',
+                        opacity: 0.92}} start={[0.1, 0.1]}>
+                        <View style={styles.header}>
+                            <View style={styles.iconHolder}>
+                                <MaterialIcons name="keyboard-backspace" size={25} color="white" onPress={() => props.navigation.goBack()}/>
+                                <Entypo name="dots-three-horizontal" size={25} color="white"/>
                             </View>
-                        ))}
-                    </View>
-                    <Text style={{fontSize:20,color:'black',fontWeight:'bold', marginTop:5}}>
-                        Overview
-                    </Text>
-                    <Text style={{fontSize:15, color:'black',marginTop:2, marginBottom:5}}>{movie?.overview}</Text>
-                    <View style={styles.rows}>
-                        <View>
-                            <Text style={{fontSize:15,color:'black'}}>Status</Text>
-                            <Text>{movie?.status}</Text>
                         </View>
-                        <View>
-                            <Text style={{fontSize:15,color:'black'}}>Original Language</Text>
-                            {movie?.spoken_languages?.map((language,i) => (
-                                <Text key={i}>{language.name}</Text>
-                            ))}
-                        </View>
-                        <View>
-                            <Text style={{fontSize:15,color:'black'}}>Running Time</Text>
-                            {timeConvert(movie?.runtime)}
-                        </View>
-                    </View>
-                    <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                        <Text style={{fontSize:18,color:'black',fontWeight:'700'}}>Full Cast & Crew</Text>
-                        <Text style={{textAlign:'right'}}>Show All</Text>
-                    </View>
-                    <View style={styles.rows}>
-                        <View style={{flexDirection:'row'}}>
-                            {casts?.slice(0,4).map((cast,i) => (
-                                    <View style={{marginRight:13}} key={i}>
-                                        <View style={styles.castImage}></View>
-                                        <Text style={{textAlign:'center',fontSize:16,color:'black',marginTop:3}}>{cast?.name}</Text>
+                        <View style={styles.body}>
+                            <Image source={{uri: IMAGE_BASE_URL+movie.poster_path}} style={styles.imageHolder}/>
+                            <View style={styles.headerHolder}>
+                                <Text style={styles.title}>{movie?.original_title}</Text>
+                                <Text style={{fontSize:14, color:'black'}}>{movie?.release_date}</Text>
+                            </View>
+                            <View style={styles.bodyContainer}>
+                                <View style={{flexDirection:'row'}}>
+                                    {movie?.genres?.map((genre,i) => (
+                                        <View key={i} style={styles.genre}>
+                                            <Text style={{color:'black'}}>{genre.name} </Text>
+                                        </View>
+                                    ))}
+                                </View>
+                                <Text style={{fontSize:20,color:'black',fontWeight:'bold', marginTop:5}}>
+                                    Overview
+                                </Text>
+                                <Text style={{fontSize:15, color:'black',marginTop:2, marginBottom:5}}>{movie?.overview}</Text>
+                                <View style={styles.rows}>
+                                    <View>
+                                        <Text style={{fontSize:15,color:'black'}}>Status</Text>
+                                        <Text>{movie?.status}</Text>
                                     </View>
-                            ))}
-                        </View>
-                    </View>
-                    <View style={styles.rows}>
-                        <View>
-                            <Text style={{fontSize:15,color:'black'}}>Revenue</Text>
-                            <Text>${revenue}</Text>
-                        </View>
-                        <View >
-                            <Text style={{fontSize:15,color:'black'}}>Budget</Text>
-                            <Text>${movie?.budget}</Text>
-                        </View>
-                    </View>
-                    <View style={styles.rows}>
-                        <Text>Similar Movies</Text>
-                        <View>
-                            {similarMovies?.slice(0,5).map((similar, i) => (
-                                <Board key={i} 
-                                    poster = {similar.poster_path}
-                                    title = {similar.original_title}
-                                    rating = {similar.vote_average}
-                                    overview = {similar.overview}
-                                    popularity= {similar.popularity}
-                                    navigation= {props.navigation}
-                                    screen= "movieDetail"
-                                    id= {similar.id}
-                                />
-                            ))}
-                        </View>
-                    </View>
-                </View>                
+                                    <View>
+                                        <Text style={{fontSize:15,color:'black'}}>Original Language</Text>
+                                        {movie?.spoken_languages?.map((language,i) => (
+                                            <Text key={i}>{language.name}</Text>
+                                        ))}
+                                    </View>
+                                    <View>
+                                        <Text style={{fontSize:15,color:'black'}}>Running Time</Text>
+                                        {timeConvert(movie?.runtime)}
+                                    </View>
+                                </View>
+                                <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                                    <Text style={{fontSize:18,color:'black',fontWeight:'700'}}>Full Cast & Crew</Text>
+                                    <Text style={{textAlign:'right'}}>Show All</Text>
+                                </View>
+                                <View style={styles.rows}>
+                                    <View style={{flexDirection:'row'}}>
+                                        {casts?.slice(0,4).map((cast,i) => (
+                                                <View style={{marginRight:13}} key={i}>
+                                                    <Image source={{uri: IMAGE_BASE_URL_FACE+cast.profile_path}} style={styles.castImage}/>
+                                                    <Text style={{textAlign:'center',fontSize:16,color:'black',marginTop:3,width:60}}>{cast?.name}</Text>
+                                                </View>
+                                        ))}
+                                    </View>
+                                </View>
+                                <View style={styles.rows}>
+                                    <View>
+                                        <Text style={{fontSize:15,color:'black'}}>Revenue</Text>
+                                        <Text>${revenue}</Text>
+                                    </View>
+                                    <View >
+                                        <Text style={{fontSize:15,color:'black'}}>Budget</Text>
+                                        <Text>${movie?.budget}</Text>
+                                    </View>
+                                </View>
+                                <View>
+                                    <Text>Similar Movies</Text>
+                                    <View style={{marginLeft: -15,width: windowWidth-5}}>
+                                        {similarMovies?.slice(0,5).map((similar, i) => (
+                                            <Board key={i} 
+                                                poster = {similar.poster_path}
+                                                title = {similar.original_title}
+                                                rating = {similar.vote_average}
+                                                overview = {similar.overview}
+                                                popularity= {similar.popularity}
+                                                navigation= {props.navigation}
+                                                screen= "movieDetail"
+                                                id= {similar.id}
+                                            />
+                                        ))}
+                                    </View>
+                                </View>
+                            </View>                
+                        </View>                
+                    </LinearGradient>
+                </ImageBackground>
             </View>
-        </View>
+        </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
     container:{
-        backgroundColor:'green'
+        flex:1
     },
     header:{
         height:220,
         padding: 10,
-        backgroundColor:'#F2F2F2',
-        backgroundColor:'green',
     },
     body:{
-        height: windowHeight - 220,
+        height:1480,
         backgroundColor:'#F8F8F8',
         padding: 20,
         borderTopLeftRadius:50,
