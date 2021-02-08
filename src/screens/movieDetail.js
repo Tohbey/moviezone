@@ -76,7 +76,7 @@ const movieDetail = (props) => {
     return (
         <ScrollView>
             <View style={styles.container}>
-                <ImageBackground source={{uri:IMAGE_BASE_URL+movie.poster_path}} style={{width:'100%'}} imageStyle={{height:600}}>
+                <ImageBackground source={{uri:IMAGE_BASE_URL+movie.backdrop_path}} style={{width:'100%'}} imageStyle={{height:600, width:500}}>
                     <LinearGradient colors={["#09203f", "#537895"]} style={{width: '100%',
                         height: '100%',
                         opacity: 0.92}} start={[0.1, 0.1]}>
@@ -103,7 +103,7 @@ const movieDetail = (props) => {
                                 <Text style={{fontSize:20,color:'black',fontWeight:'bold', marginTop:5}}>
                                     Overview
                                 </Text>
-                                <Text style={{fontSize:15, color:'black',marginTop:2, marginBottom:5}}>{movie?.overview}</Text>
+                                <Text style={{fontSize:15, color:'black',marginTop:2, marginBottom:5, textAlign:'justify'}}>{movie?.overview}</Text>
                                 <View style={styles.rows}>
                                     <View>
                                         <Text style={{fontSize:15,color:'black'}}>Status</Text>
@@ -172,7 +172,7 @@ const movieDetail = (props) => {
 
 const styles = StyleSheet.create({
     container:{
-        flex:1
+        flex:1,
     },
     header:{
         height:220,
@@ -199,7 +199,6 @@ const styles = StyleSheet.create({
         top:95,
         left:20,
         right:20,
-        width:'95%'
     },
     imageHolder:{
         position:'absolute',
